@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" >
+  <category>
+    <pattern>天 气</pattern>
+      <template>那我告诉你最近今、明、后3天内的天气概况吧，想知道详细情况就直接告诉我哪一天就好了<think><set name = "topic">天气</set></think></template>
+  </category>
+ 
+  <category>
+      <pattern>* 天 气 *</pattern>
+      <template><srai>天 气</srai></template>
+  </category>
+
+  <topic name ="天气">
+    <category>      
+      <pattern>*</pattern>     
+        <template>
+        查询的天气状况为:多云 23℃ 东南风 微风
+        <think><set name = "topic">随意</set></think>
+        </template> 
+    </category>
+  </topic> 
+
+</aiml>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" >
+  <category>
+    <pattern>电 影 推 荐</pattern>
+      <template>主人是想了解最近好看的电影吗，大白精心准备了最近十大热门电影，请主人注意右下角的信息栏，想了解更多信息的话，请以(电影序号 "序号")格式输入，大白会给你找寻答案哦！</template>
+  </category>
+ 
+  <category>
+      <pattern>* 电 影 *</pattern>
+      <template><srai>电 影 推 荐</srai></template>
+  </category>
+
+    <category>
+      <pattern>* 电 影</pattern>
+      <template><srai>电 影 推 荐</srai></template>
+  </category>
+
+  <category>
+      <pattern>电 影 序 号 *</pattern>
+        <template>电影相关信息已显示在右下角，望主人阅目</template>
+  </category>    
+
+</aiml>

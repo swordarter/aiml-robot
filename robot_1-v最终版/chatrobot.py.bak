@@ -1,0 +1,168 @@
+from PyQt5 import QtCore,QtGui,QtWidgets
+from viewUI import robot_UI
+from robot_server import robotServer
+import aiml
+from socket import *
+from threading import Thread
+import datetime
+import time
+
+
+Saddress = ('176.136.8.47',9200)
+class mainWindow(QtWidgets.QWidget,robot_UI):
+    _signal = QtCore.pyqtSignal(str)
+    QtWidgets.QSystemTrayIcon
+       
+    def __init__(self,Saddress):
+        super(mainWindow,self).__init__()
+        self.setupUI(self)
+        self.QTextEdit_TIME.setText('时间输入示例:1990-02-21-08-29(年-月-日-时-分)')
+        self.sendButton.clicked.connect(self.client_send)
+        self.clearButton.clicked.connect(self.message_clear)
+        self.startButton.clicked.connect(self.robot_born)
+        self.enterButton.clicked.connect(self.clock)
+        self._signal.connect(self.messageSingal)
+        self.Saddress = Saddress
+        self.setFixedSize(self.width(), self.height())
+        # self.tray.activated.connect(self.TuoPanEvent)
+        # self.RestoreAction = QtWidgets.QAction(u'还原 ', self, triggered=self.show)
+        # self.QuitAction = QtWidgets.QAction(u'退出 ', self, triggered=self.QtWidgets.qApp.quit) 
+        # self.tray_menu.addAction(self.RestoreAction) 
+        # self.tray_menu.addAction(self.QuitAction)
+        # self.tray.setContextMenu(self.tray_menu) 
+
+    def robot_born(self):
+        dabai = robotServer()
+        print('start')
+        dabai.serve_forever()
+        self._signal.emit('大白已经苏醒，快去打招呼吧\n')
+        self.client_serve_forever()
+    
+    
+    def client_serve_forever(self):
+        self.sockfd = socket()       
+        try :
+            self.sockfd.connect(self.Saddress)
+            print('starting')
+        except Exception as e:
+            print('客户端无法正常启动')
+        self.client_th =Thread(target=self.client_concurrency)
+        self.client_th.start()
+    
+    def client_concurrency(self):
+        while True:
+            msg_recv = self.sockfd.recv(1024)
+            if msg_recv:
+                if msg_recv == b'byb':
+                    self.sockfd.close()
+                    print('客户端已关闭')
+                    self._signal.emit('大白已冬眠，请勿打扰')
+                    break
+                else:
+                    msg = msg_recv.decode('utf-8')
+                    print('客户端已接收')
+                    self._signal.emit(msg)
+            
+    def get_addr(self):
+        addr = self.sockfd.getsockname()
+        return addr         
+    
+    def client_send(self):        
+        msg = self.QTextEdit_input.toPlainText()
+        kegwords = '备忘录'
+        if msg[-1] == '\n':
+            self.sendButton.setEnabled(False)
+            self.sendButton.setEnabled(True)
+        else:
+            self.sendButton.setEnabled(True)
+            if self.sockfd:
+                addr = self.get_addr()
+            if msg == 'byb':
+                msg_s = '{}%{}'.format(msg,repr(addr)).encode()
+                self.sockfd.send(msg_s)
+                msg_show = '我说:{}\n'.format(msg)
+                self._signal.emit(msg_show)
+                self.QTextEdit_input.clear()
+            elif kegwords in msg:
+                msg_s = '{}%{}'.format(msg,repr(addr)).encode()
+                self.sockfd.send(msg_s)
+                self.QTextEdit_input.clear()
+                # self.clock_th = Thread(target=self.clock)
+                # self.clock_th.setDaemon(True)
+                # self.clock_th.start()
+            else:
+                msg_s = '{}%{}'.format(msg,repr(addr)).encode()
+                self.sockfd.send(msg_s)
+                print('客户端发送')
+                msg_show = '我说:{}\n'.format(msg)
+                self._signal.emit(msg_show)
+                self.QTextEdit_input.clear()               
+   
+    def message_clear(self):
+        self.QTextBrowser_show.clear()
+        
+    def messageSingal(self,msg):
+        self.QTextBrowser_show.insertPlainText(msg)
+        self.QTextBrowser_show.moveCursor(QtGui.QTextCursor.End)
+
+    def time_enter(self):
+        times = self.QTextEdit_TIME.toPlainText().strip()
+        self.QTextEdit_TIME.clear()
+        return times
+
+    def thread_enter(self):
+        threads = self.QTextEdit_THREAD.toPlainText().strip()
+        self.QTextEdit_THREAD.clear()
+        return threads
+
+    def location_enter(self):
+        location = self.QTextEdit_LOCATION.toPlainText().strip()
+        self.QTextEdit_LOCATION.clear()
+        return location
+
+    def clock(self):
+        times = self.time_enter()
+        print(times)
+        thread = self.thread_enter()
+        location = self.location_enter()
+        time_list = times.split('-')
+        print(time_list)
+        hours = int(time_list[-2])
+        minutes = int(time_list[-1])
+        if 0 <= minutes <= 45:
+            hours = hours-1
+            minutes = minutes+15 
+        elif 45 < minutes < 60:
+            minutes = minutes-45
+        time_list[-1] = self.judge_num(minutes)
+        time_list[-2] = self.judge_num(hours)
+        times = '-'.join(time_list)
+        print('计时开始')
+        print(times)
+        self.clock_th = Thread(target=self.clock_start,args=(times,thread,location))
+        self.clock_th.setDaemon(True)
+        self.clock_th.start()
+
+    def clock_start(self,tims,thread,location):
+        while True:
+            time_now = datetime.datetime.now()
+            time_now = datetime.datetime.strftime(time_now,r'%Y-%m-%d-%H-%M')
+            if time_now == tims:
+                msg = '大白说:主人距离{}还有45分钟,地点:{},请尽快准备！\n'.format(thread,location)
+                self._signal.emit(msg)
+                break
+            time.sleep(1)
+
+    def judge_num(self,num):
+        if num < 10:
+            num = '0%d'%(num)
+        else:
+            num = str(num)
+        return num
+
+if __name__ == '__main__':
+    import sys,os     
+    app = QtWidgets.QApplication(sys.argv)
+    robot_mainwindow = mainWindow(Saddress)
+    robot_mainwindow.show()
+    sys.exit(app.exec_())

@@ -1,0 +1,18 @@
+<aiml version='1.0.1' encoding='UTF-8'>
+<!-- basic_chat_chat.aiml -->
+
+    <category>
+        <pattern>HELLO</pattern>
+        <template>
+            well,hello!
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT ARE YOU</pattern>
+        <template>
+            I'm a bot, silly!
+        </template>
+    </category>
+
+</aiml>

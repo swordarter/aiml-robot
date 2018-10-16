@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" >
+  <category>
+    <pattern>请 将 中 文 * 翻 译 成 英 文</pattern>
+      <template>
+        英文是:Hello
+      </template>
+  </category>
+
+  <category>
+    <pattern>请 将 英 文 * 翻 译 成 中 文</pattern>
+      <template>
+        中文是:你好
+      </template>
+  </category>
+</aiml>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" >
+  <category>
+    <pattern>新 闻</pattern>
+      <template>主人，大白已为你搜罗了最新的热点新闻，请瞧瞧右下角哦，如果想了解详细内容，请输入"新闻话题 新闻序号"<think><set name = "topic">新闻</set></think></template>
+  </category>
+ 
+  <category>
+      <pattern>* 新 闻 *</pattern>
+      <template><srai>新 闻</srai></template>
+  </category>
+
+  <category>
+      <pattern>* 新 闻</pattern>
+      <template><srai>新 闻</srai></template>
+  </category>
+
+  <category>
+      <pattern>* 热 点 *</pattern>
+      <template><srai>新 闻</srai></template>
+  </category>
+
+  <category>
+      <pattern>* 大 事 *</pattern>
+      <template><srai>新 闻</srai></template>
+  </category>
+
+  <category>
+      <pattern>* 大 事</pattern>
+      <template><srai>新 闻</srai></template>
+  </category>
+
+  <topic name ="新闻">
+    <category>      
+      <pattern>新 闻 话 题 *</pattern>     
+        <template>
+        主人，大白已针对您的兴趣挖掘到了该新闻的详细内容，快去看看吧！
+        <think><set name = "topic">随便</set></think>
+        </template> 
+    </category>
+  </topic> 
+
+</aiml>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" >
+  <category>
+    <pattern>* 备 忘 录</pattern>
+      <template>
+        主人请依照窗口右上的输入栏填写备忘录哦~大白一定会准时提醒您的！
+      </template>
+  </category>
+
+</aiml>

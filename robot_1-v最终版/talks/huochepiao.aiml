@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" >
+  <category>
+    <pattern>火 车 票</pattern>
+      <template>您想要查询火车票信息吗，如是请这样输入查询信息:"查询车票 起始地 目的地 年-月-日 座位类型 最早时间 最晚时间",方便大白查询<think><set name = "topic">火车票</set></think></template>
+  </category>
+ 
+  <category>
+      <pattern>* 火 车 票 *</pattern>
+      <template><srai>火 车 票</srai></template>
+  </category>
+
+    <category>
+      <pattern>* 火 车 票</pattern>
+      <template><srai>火 车 票</srai></template>
+  </category>
+
+  <topic name ="火车票">
+    <category>      
+      <pattern>查 询 车 票 *</pattern>     
+        <template>
+        具体车次情况已显示在右下角哦,请主人尽早准备
+        <think><set name = "topic">随意</set></think>
+        </template> 
+    </category>
+
+    <!-- <category>      
+      <pattern>车 次 *</pattern>     
+        <template>
+        大白已经查询到的车票显示在右下角了哦！请注意
+        <think><set name = "topic">随意</set></think>
+        </template> 
+    </category>
+
+    <category>      
+      <pattern>查 无 此 车</pattern>     
+        <template>
+        主人,大白并未查询到此班列车哦,请注意开售时间！
+        <think><set name = "topic">随意</set></think>
+        </template> 
+    </category>
+
+    <category>      
+      <pattern>车 次 不 存 在</pattern>     
+        <template>
+        主人,大白并未查询到该班次信息,请重新确认！
+        <think><set name = "topic">随意</set></think>
+        </template> 
+    </category>
+
+    <category>      
+      <pattern>否</pattern>     
+        <template>
+        主人赶紧去抢购您想要购买的车票吧！
+        <think><set name = "topic">随意</set></think>
+        </template> 
+    </category> -->
+  </topic> 
+
+</aiml>

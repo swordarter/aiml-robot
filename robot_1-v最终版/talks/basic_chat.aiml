@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" >
+    <category>
+        <pattern>你 好</pattern>
+        <template>
+            您好，主人
+        </template>
+    </category>
+
+    <category>
+        <pattern>* 你 是 谁</pattern>
+        <template>
+            我是大白，您的专属机器人
+        </template>
+    </category>
+
+    <category>
+        <pattern>* 你 是 谁 *</pattern>
+        <template>
+            我是大白，您的专属机器人
+        </template>
+    </category>
+
+    <category>
+        <pattern>你 好 我 叫 *</pattern>
+        <template>
+            您好 我叫大白<think><set name="username"><star/></set></think>
+        </template>
+    </category>
+
+    <category>
+        <pattern>你 知 道 我 叫 什 么 *</pattern>
+        <template>
+            当然 我的主人<get name="username" />
+        </template>
+    </category>
+    
+    <category>
+        <pattern>我 的 名 字 *</pattern>
+        <template>
+            <srai>你 知 道 我 叫 什 么 *</srai>
+        </template>
+    </category>
+
+        <category>
+        <pattern>我 叫 *</pattern>
+        <template>
+            <srai>你 知 道 我 叫 什 么 *</srai>
+        </template>
+    </category>
+
+            <category>
+        <pattern>* 我 叫 *</pattern>
+        <template>
+            <srai>你 知 道 我 叫 什 么 *</srai>
+        </template>
+    </category>                
+    
+    <category>
+        <pattern>*</pattern>
+        <template>
+            主人我不清楚你在说什么！
+        </template>
+    </category>
+
+</aiml>

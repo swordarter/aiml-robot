@@ -1,0 +1,34 @@
+<aiml version = '1.0.1' encoding='UTF-8'>
+    <!-- std-startup.xml -->
+    
+    <!-- category是一个自动的AIML单元 -->
+    <category>
+
+        <!-- pattern用来匹配用户输入 -->
+        <!-- 如果用户输入 'LOAD AI' -->
+        <pattern>LOAD AI</pattern>
+
+        <!-- Template是模式的响应 -->
+        <!-- 这里学习一个aiml文件 -->
+        <template>
+            <learn>talks/basic_chat.aiml</learn>
+            <!-- <learn>general.aiml</learn> -->
+            <!-- <learn>learn.aiml</learn>
+            <learn>maimeng.aiml</learn>
+            <learn>property.aiml</learn>
+            <learn>sex.aiml</learn> -->
+            <learn>talks/fanyi.aiml</learn>
+            <learn>talks/memo.aiml</learn>
+            <learn>talks/baidubaike.aiml</learn>
+            <learn>talks/tianqi.aiml</learn>
+            <learn>talks/movie.aiml</learn>
+            <!-- <learn>sturobot.aiml</learn> -->
+            <learn>talks/huochepiao.aiml</learn>
+            <learn>talks/news.aiml</learn>
+            <!-- 这里可以以添加更多的aiml文件 -->
+            <!-- <learn>more_aiml.aiml</learn>-->
+        </template>
+
+    </category>
+
+</aiml>
